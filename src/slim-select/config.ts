@@ -81,6 +81,7 @@ export class Config {
   public readonly highlighted: string = 'ss-highlighted'
   public readonly disabled: string = 'ss-disabled'
   public readonly hide: string = 'ss-hide'
+  public readonly gestion: string = 'gestion'
 
   constructor(info: Constructor) {
     this.id = 'ss-' + Math.floor(Math.random() * 100000)

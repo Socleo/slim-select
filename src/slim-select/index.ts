@@ -214,7 +214,7 @@ export default class SlimSelect {
         // Look for duplicate selected if so remove it
         for (let i = 0; i < newData.length; i++) {
           if (!newData[i].placeholder && newData[i].value === (selected as Option).value && newData[i].text === (selected as Option).text) {
-            delete newData[i]
+            newData.splice(i, 1);
           }
         }
 
@@ -274,6 +274,7 @@ export default class SlimSelect {
       this.slim.content.style.top = (containerRect.top + containerRect.height + window.scrollY) + 'px'
       this.slim.content.style.left = (containerRect.left + window.scrollX) + 'px'
       this.slim.content.style.width = containerRect.width + 'px'
+      this.slim.content.classList.add(this.config.gestion)
     }
     this.slim.content.classList.add(this.config.open)
 
@@ -376,6 +377,8 @@ export default class SlimSelect {
     this.slim.content.style.margin = '-' + height + 'px 0 0 0'
     this.slim.content.style.height = (height - selectHeight + 1) + 'px'
     this.slim.content.style.transformOrigin = 'center bottom'
+    this.slim.content.classList.remove(this.config.openBelow)
+    this.slim.content.classList.add(this.config.openAbove)
     this.data.contentPosition = 'above'
 
     if (this.config.isMultiple && this.slim.multiSelected) {
@@ -388,6 +391,8 @@ export default class SlimSelect {
   }
 
   public moveContentBelow(): void {
+    this.slim.content.classList.remove(this.config.openAbove)
+    this.slim.content.classList.add(this.config.openBelow)
     this.data.contentPosition = 'below'
 
     if (this.config.isMultiple && this.slim.multiSelected) {

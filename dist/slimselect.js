@@ -747,7 +747,7 @@ var SlimSelect = (function () {
                 newData.unshift(selected);
                 for (var i = 0; i < newData.length; i++) {
                     if (!newData[i].placeholder && newData[i].value === selected.value && newData[i].text === selected.text) {
-                        delete newData[i];
+                        newData.splice(i, 1);
                     }
                 }
                 var hasPlaceholder = false;
@@ -801,6 +801,7 @@ var SlimSelect = (function () {
             this.slim.content.style.top = (containerRect.top + containerRect.height + window.scrollY) + 'px';
             this.slim.content.style.left = (containerRect.left + window.scrollX) + 'px';
             this.slim.content.style.width = containerRect.width + 'px';
+            this.slim.content.classList.add(this.config.gestion);
         }
         this.slim.content.classList.add(this.config.open);
         if (this.config.showContent.toLowerCase() === 'up') {
@@ -889,6 +890,8 @@ var SlimSelect = (function () {
         this.slim.content.style.margin = '-' + height + 'px 0 0 0';
         this.slim.content.style.height = (height - selectHeight + 1) + 'px';
         this.slim.content.style.transformOrigin = 'center bottom';
+        this.slim.content.classList.remove(this.config.openBelow);
+        this.slim.content.classList.add(this.config.openAbove);
         this.data.contentPosition = 'above';
         if (this.config.isMultiple && this.slim.multiSelected) {
             this.slim.multiSelected.container.classList.remove(this.config.openBelow);
@@ -900,6 +903,8 @@ var SlimSelect = (function () {
         }
     };
     SlimSelect.prototype.moveContentBelow = function () {
+        this.slim.content.classList.remove(this.config.openAbove);
+        this.slim.content.classList.add(this.config.openBelow);
         this.data.contentPosition = 'below';
         if (this.config.isMultiple && this.slim.multiSelected) {
             this.slim.multiSelected.container.classList.remove(this.config.openAbove);
@@ -1071,6 +1076,7 @@ var Config = (function () {
         this.highlighted = 'ss-highlighted';
         this.disabled = 'ss-disabled';
         this.hide = 'ss-hide';
+        this.gestion = 'gestion';
         this.id = 'ss-' + Math.floor(Math.random() * 100000);
         this.style = info.select.style.cssText;
         this["class"] = info.select.className.split(' ');

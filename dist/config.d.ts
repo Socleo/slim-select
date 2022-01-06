@@ -77,6 +77,7 @@ export declare class Config {
     readonly highlighted: string;
     readonly disabled: string;
     readonly hide: string;
+    readonly gestion: string;
     constructor(info: Constructor);
     searchFilter(opt: Option, search: string): boolean;
 }
